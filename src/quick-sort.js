@@ -1,20 +1,33 @@
 'use strict';
 
-function quickSort(input) {
-    if(input == null || input == undefined){
-    throw new DOMException();
-    
-    }
-else if(input.length === 0){
-  return new Array(0);
-} 
-else{
-     if(isNaN(parseInt(input[0]))){
-     return input.sort();
-    }
-     else if(!isNaN(parseInt(input[0]))){
-     return input.sort( (a,b) => parseInt(a) - parseInt(b));
-    }
+function NullReferenceExcption(message) {
+  console.log(message);
+  return message;
+};
+
+function quickSort(origArray) {
+
+if(origArray == null){
+    throw new NullReferenceExcption("Null values is not supported in Quick Sort");
 }
+
+  if (origArray.length <= 1) {
+    return origArray;
+  } else {
+    const left = [];
+    const right = [];
+    const newArray = [];
+    const pivot = origArray.pop();
+    const length = origArray.length;
+
+    for (let i = 0; i < length; i++) {
+      if (origArray[i] <= pivot) {
+        left.push(origArray[i]);
+      } else {
+        right.push(origArray[i]);
+      }
+    }
+    return newArray.concat(quickSort(left), pivot, quickSort(right));
+  }
 };
 module.exports = quickSort;
